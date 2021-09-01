@@ -11,7 +11,7 @@
 
 -----------
 
-####Functionality
+###### Functionality
 > - Program asks a user to input the E-mail used with the order and then their OrderID.
 > - Automatically uses those inputs to submit on Walmart's Track Order Page.
 > - If this is the first time, it will create a "WalmartOrders.csv".
@@ -19,11 +19,11 @@
 > - Walmart is always changing their delivery status. So I added the ability to allow users to 
     automatically update their "WalmartOrders.csv" easily.
 > - This will output a new file "WalmartOrders2.csv".
- 
 
 
 
-######TO-DO://
+
+###### TO-DO://
 > - Support discord webhooks.
 > - Support txt file, so user's can input a txt file in format emails:orderIDs
 > - Some more things to add...
