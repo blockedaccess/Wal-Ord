@@ -106,6 +106,7 @@ func OrderTrack(orderInfo *OrderInfo) {
 					break
 				}
 
+
 			}
 				path := "WalmartOrders.csv"
 				file, err := os.OpenFile(path, os.O_APPEND|os.O_WRONLY, os.ModeAppend)
