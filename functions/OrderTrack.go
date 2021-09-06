@@ -20,7 +20,8 @@ type OrderInfo struct {
 //	OrderID string
 //}
 
-func OrderUpdater(orderInfo *OrderInfo){page := rod.New().MustConnect().MustPage("https://www.walmart.com/account/trackorder").MustWindowFullscreen()
+func OrderUpdater(orderInfo *OrderInfo) {
+	page := rod.New().MustConnect().MustPage("https://www.walmart.com/account/trackorder").MustWindowFullscreen()
 	page.MustElement("#email").MustInput(orderInfo.Email)
 	page.MustElement("#fullOrderId").MustInput(orderInfo.OrderID)
 	page.MustElement("#main-content > form > div.text-center > button > span > span > span").MustClick()
@@ -33,7 +34,7 @@ func OrderUpdater(orderInfo *OrderInfo){page := rod.New().MustConnect().MustPage
 	product := page.MustElementX("//*[@id=\"main-content\"]/div/div[2]/span/div[2]/div/ul/li/ul/li/ul/li/div[2]/div[2]/div[1]/a/div/div")
 	price := page.MustElementX("//*[@id=\"main-content\"]/div/div[2]/span/div[1]/ul/li/div/div[1]/div[1]/span[2]")
 	card := page.MustElementX("//*[@id=\"show-details-recent-orders\"]/div/div/div/div[2]/div[1]/div/div/ul/li/div")
-	creation := time.Now();
+	creation := time.Now()
 	reader, err := readData("WalmartOrders.csv")
 	if err != nil {
 		log.Fatal(err)
@@ -64,7 +65,7 @@ func OrderUpdater(orderInfo *OrderInfo){page := rod.New().MustConnect().MustPage
 			}
 
 			fmt.Println("WalmartOrders2.csv created BOSS !!")
-		} else {
+		} else if fileExists("WalmartOrders2.csv") {
 			if orderInfo.Email == order.Email && orderInfo.OrderID == order.OrderID {
 				path := "WalmartOrders2.csv"
 				file, err := os.OpenFile(path, os.O_APPEND|os.O_WRONLY, os.ModeAppend)
@@ -121,22 +122,22 @@ func OrderTrack(orderInfo *OrderInfo) {
 					break
 				}
 			}
-				path := "WalmartOrders.csv"
-				file, err := os.OpenFile(path, os.O_APPEND|os.O_WRONLY, os.ModeAppend)
-				if err != nil {
-					log.Fatal(err)
-				}
+			path := "WalmartOrders.csv"
+			file, err := os.OpenFile(path, os.O_APPEND|os.O_WRONLY, os.ModeAppend)
+			if err != nil {
+				log.Fatal(err)
+			}
 
-				defer file.Close()
+			defer file.Close()
 
-				var data = [][]string{
-					{orderInfo.Email, orderInfo.OrderID, product.MustText(), price.MustText(), name.MustText(), address.MustText(), card.MustText(), orderPlaced.MustText(), arrival.MustText(), creation.Format("01-02-2006 15:04:05 Monday")},
-				}
-				data = append(data)
-				w := csv.NewWriter(file)
-				w.WriteAll(data)
-				fmt.Println("WalmartOrders.csv updated BOSS !!")
-				//todo discord webhook
+			var data = [][]string{
+				{orderInfo.Email, orderInfo.OrderID, product.MustText(), price.MustText(), name.MustText(), address.MustText(), card.MustText(), orderPlaced.MustText(), arrival.MustText(), creation.Format("01-02-2006 15:04:05 Monday")},
+			}
+			data = append(data)
+			w := csv.NewWriter(file)
+			w.WriteAll(data)
+			fmt.Println("WalmartOrders.csv updated BOSS !!")
+			//todo discord webhook
 
 		} else {
 			Upload, err := os.Create("WalmartOrders.csv")
