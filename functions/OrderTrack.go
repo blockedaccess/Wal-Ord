@@ -15,11 +15,6 @@ type OrderInfo struct {
 	OrderID string
 }
 
-//type Orders struct {
-//	Email string
-//	OrderID string
-//}
-
 func OrderUpdater(orderInfo *OrderInfo) {
 	page := rod.New().MustConnect().MustPage("https://www.walmart.com/account/trackorder").MustWindowFullscreen()
 	page.MustElement("#email").MustInput(orderInfo.Email)
