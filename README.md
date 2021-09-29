@@ -5,7 +5,7 @@
 > - Just for fun project to learn more about Go-Rod and Go-Libraries.
 > - Some aesthetic ASCII to hide that it has no GUI. :upside_down_face:
 > - May have bugs.
-> - Few things to add to really ***polish*** it off.
+> - Few things to add to ***polish*** it off.
 
 ![img.png](img.png)
 
